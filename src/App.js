@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react'
+import Signup from './components/signup'
+import Signin from './components/signin'
+import Home from './components/home'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
-function App() {
+function App(props) {
+
+  const [myState, setMyState] = useState()
+  
+  const [jwt, setJwt] = useState(false)
+
+
+  // const setMyJwt = (val) => {
+  //   setJwt(val)
+  //   console.log(val)
+  // }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      
+      <Switch>
+          <Route path="/signup">
+            <Signup setMyJwt={(val) => setJwt(val)} myJwt={jwt}/>
+          </Route>
+          <Route  path="/signin">
+            <Signin setMyJwt={(val) => setJwt(val)}/>
+          </Route>
+          <Route exact path="/" >
+            {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
+          </Route>
+        </Switch>
+    </Router>
   );
 }
 
