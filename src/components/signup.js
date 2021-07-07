@@ -1,4 +1,4 @@
-import '../App.css';
+import '../styles/auth.css';
 import axios from 'axios';
 import {useState} from 'react'
 import { useHistory } from "react-router-dom";
@@ -14,7 +14,7 @@ function Signup(props) {
     history.push('/signin')
   }
     
-  const click = () => {
+  const submit = () => {
     // axios.get(`http://localhost:1337/categories`)
     //   .then(res => {
     //     console.log(res.data);
@@ -87,7 +87,7 @@ function Signup(props) {
           <label>Password</label>
         </div>
         <div className="user-box-flex">
-            <a onClick={click} className='user-box-flex_button' href="#">
+            <a onClick={submit} className='user-box-flex_button' href="#">
             <span />
             <span />
             <span />

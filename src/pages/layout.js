@@ -1,8 +1,10 @@
-import './App.css';
+import './layout.css';
 import {useState} from 'react'
-import Signup from './components/signup'
-import Signin from './components/signin'
-import Home from './components/home'
+import Signup from '../components/signup'
+import Signin from '../components/signin'
+import Home from '../components/home'
+import Navbar from '../components/navbar'
+import Breadcumps from '../components/breadcumps'
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,7 +26,8 @@ function App(props) {
 
   return (
     <Router>
-      
+      <Navbar/>
+      <Breadcumps/>
       <Switch>
           <Route path="/signup">
             <Signup setMyJwt={(val) => setJwt(val)} myJwt={jwt}/>
@@ -32,9 +35,10 @@ function App(props) {
           <Route  path="/signin">
             <Signin setMyJwt={(val) => setJwt(val)}/>
           </Route>
-          <Route exact path="/" >
+          <Route path="/home" >
             {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
           </Route>
+         
         </Switch>
     </Router>
   );

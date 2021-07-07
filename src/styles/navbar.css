@@ -1,0 +1,38 @@
+.navbar{
+    width: 100%;
+    height: 44px;
+    background-color: rgba(0, 0, 0, 0.92);
+}
+
+.AppleLogo{
+    height: 100%;
+    padding: 10px 0;
+    width: 20px;
+    /* border: 1px solid blue; */
+}
+
+.navbar-menu{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    width:50%;
+    /* border: 1px solid yellow; */
+    margin: 0 auto;
+}
+
+.navbar_navbar-menu_title{
+    font-family: 'Montserrat', sans-serif;
+    font: 500;
+    font-size: 13px;
+    color: #ddd;
+    line-height: 3.3;
+    cursor: pointer;
+    transition: 0.2s;
+
+}
+
+
+.navbar_navbar-menu_title:hover{
+    color: #eee;
+    transition: 0.2s;
+}

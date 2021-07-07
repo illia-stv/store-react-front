@@ -1,0 +1,29 @@
+
+
+.breadcumps{
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font: 500;
+    font-size: 15px;
+    display: flex;
+    /* border: 1px solid black; */
+    justify-content: flex-end;
+    margin: 20px 20px 0 0;
+    cursor: pointer;
+    transition: 0.2s;
+    position: absolute;
+    top: 47px;
+    right: 10px;
+    transition: 0.1s;
+
+}
+
+
+
+.breadcumps:hover{
+    color: #666;
+    transition: 0.1s;
+}
+
+
+
