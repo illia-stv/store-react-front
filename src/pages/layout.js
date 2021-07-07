@@ -14,7 +14,7 @@ import {
 
 function App(props) {
 
-  const [myState, setMyState] = useState()
+  // const [myState, setMyState] = useState()
   
   const [jwt, setJwt] = useState(false)
 
@@ -38,7 +38,9 @@ function App(props) {
           <Route path="/home" >
             {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
           </Route>
-         
+          <Route exact path="/" >
+            {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/home" />}
+          </Route>
         </Switch>
     </Router>
   );
