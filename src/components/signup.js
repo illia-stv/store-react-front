@@ -1,7 +1,8 @@
 import '../styles/auth.css';
 import axios from 'axios';
-import {useState} from 'react'
+import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function Signup(props) {
 
@@ -106,6 +107,10 @@ function Signup(props) {
       </form>
   </div>
   );
+}
+
+Signup.propTypes = {
+  setMyJwt: PropTypes.func
 }
 
 export default Signup;

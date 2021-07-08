@@ -15,7 +15,6 @@ function Home(props) {
            <div className='intro'>
             <div className="introduce-img">
             </div>
-
                 <div className="intro-box">
                     <h2>iPhone 12</h2>
                     
@@ -29,9 +28,7 @@ function Home(props) {
                         <a onClick={() => linkClick('LearnMore')}>Learn more {arrow}</a>
                         <a onClick={() => linkClick('Buy')}>Buy {arrow}</a>
                     </div>
-
                 </div>
-
            </div>
            
            <div className="iphone12">
@@ -43,7 +40,7 @@ function Home(props) {
                         
                         <h2>iPhone 12 Pro</h2>
                         
-                        <h3>It's a leep year.</h3>
+                        <h3>It&lsquo;s a leep year.</h3>
                         
                         <h4>From $41.62/mo. for 24 mo. or $999 before trade-in <br/>
                             Buy directly from Apple with special carrier offers

@@ -8,14 +8,11 @@ const Breadcumps = () => {
     const str = `Store >> ${url.split('/').join(' >> ')}`
 
     useEffect(() => {    
-          
         return history.listen((location) => { 
             setUrl(window.location.href.slice(22)) 
         }) 
-
     }, [history]);
 
-    console.log(url)
 
     return (
         <div className="breadcumps">

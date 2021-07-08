@@ -1,9 +1,10 @@
 import '../styles/auth.css';
 import axios from 'axios';
-import {useState} from 'react'
+import React,{useState} from 'react'
 import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-function Signup(props) {
+function Signin(props) {
 
   const [currentEmail, setCurrentEmail ] = useState('')
   const [currentPassword, setCurrentPassword ] = useState('')
@@ -30,15 +31,13 @@ function Signup(props) {
         password: currentPassword,
     })
     .then(response => {
-        console.log('User profile', response.data.user);
-        console.log('User token', response.data.jwt);
         props.setMyJwt(response.data.jwt)
         
         history.push('/Home')
         
     })
     .catch(error => {
-        console.log('An error occurred:', error.response);
+        // console.log('An error occurred:', error.response);
     });
 
     
@@ -92,4 +91,9 @@ function Signup(props) {
   );
 }
 
-export default Signup;
+Signin.propTypes = {
+  setMyJwt: PropTypes.func
+}
+
+
+export default Signin;
