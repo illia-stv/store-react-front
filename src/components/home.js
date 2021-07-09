@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/home.css'
 import {useHistory} from 'react-router-dom'
 
-function Home(props) {
+function Home() {
     const history = useHistory()
     const arrow = '>'
 

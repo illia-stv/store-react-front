@@ -8,7 +8,7 @@ const Breadcumps = () => {
     const str = `Store >> ${url.split('/').join(' >> ')}`
 
     useEffect(() => {    
-        return history.listen((location) => { 
+        return history.listen(() => { 
             setUrl(window.location.href.slice(22)) 
         }) 
     }, [history]);

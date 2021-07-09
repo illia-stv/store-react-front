@@ -37,7 +37,7 @@ function Signin(props) {
         
     })
     .catch(error => {
-        // console.log('An error occurred:', error.response);
+        console.log('An error occurred:', error.response);
     });
 
     

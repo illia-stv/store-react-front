@@ -4,22 +4,27 @@ import PropTypes from 'prop-types';
 
 const UnderMenu = (props) => {
     
-    const objToArr = () => {
-        const arr = []
-        for (const item in props.categories) {
-            arr.push(props.categories[item])
-        }
-        return arr
-    }
+    // const objToArr = () => {
+    //     const arr = []
+    //     for (const item in props.categories) {
+    //         arr.push(props.categories[item])
+    //     }
+    //     return arr
+    // }
     
+    // console.log(props.categories)
+
+    const linkClick = (id) => {
+        props.setMyId(id)
+    }
 
     return (
         <div className='under-menu'>
             <div className="under-menu_section">
                 
-                {objToArr().map((item, key)=> 
-                    <div key={key} className='under-menu_section_elements'>
-                        {item}
+                {props.categories.map((item, key)=> 
+                    <div key={key} onClick={() => linkClick(item[1])} className='under-menu_section_elements'>
+                        {item[0]}
                     </div>
                 )}
             </div>
@@ -28,7 +33,10 @@ const UnderMenu = (props) => {
 }
 
 UnderMenu.propTypes = {
-    categories: PropTypes.object
+    categories: PropTypes.array,
+    state: PropTypes.string,
+    setState: PropTypes.func,
+    setMyId: PropTypes.func
 }
 
 export default UnderMenu

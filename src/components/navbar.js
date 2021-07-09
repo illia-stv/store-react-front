@@ -4,10 +4,12 @@ import {ReactComponent as AppleLogo} from '../assets/svg/apple.svg';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
 
+
+
 const Navbar = (props) => {
     const history = useHistory()
     const [logoColor, setLogoColor] = useState(false)
-    
+
     const switchColorOn = () => {
         setLogoColor(true)
     } 
@@ -28,8 +30,8 @@ const Navbar = (props) => {
                     <AppleLogo width={'20px'} fill={logoColor ? '#eee' : '#ddd'} transition={'2s'} onMouseOut = {switchColorOff} onMouseOver={switchColorOn}/>
                 </div>
                 {props.menuCategories.map((item, key) => 
-                    <div onClick={() => linkClick(item)} key={key} className='navbar_navbar-menu_title'>
-                        {item}
+                    <div onClick={() => linkClick(item.Name)} key={key} className='navbar_navbar-menu_title'>
+                        {item.Name}
                     </div>    
                 )}
                 <div onClick={() => linkClick('signin')} className='navbar_navbar-menu_title'>

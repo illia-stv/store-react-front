@@ -1,5 +1,5 @@
 import './layout.css';
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Signup from '../components/signup'
 import Signin from '../components/signin'
 import Home from '../components/home'
@@ -12,80 +12,37 @@ import {
   Redirect
 } from "react-router-dom";
 import ProductPage from '../components/productPage';
+import axios from 'axios'
 
+function App() {
 
-function App(props) {
-
-  const [myState, setMyState] = useState(
-    {
-      Categories: {
-        Mac : {
-          MacBookAir: 'MacBook Air',
-          MacBookPro13: 'MacBook Pro 13',
-          MacBookPro16: 'MacBook Pro 16',
-          iMac24: 'iMac 24',
-          iMac27: 'iMac 27',
-          MacPro: 'MacPro',
-          MacMini: 'MacMini',
-          ProDisplayXDR: 'Pro Display XDR'
-        },
-        Ipad : {
-          iPadPro: 'iPad Pro',
-          iPadAir: 'iPad Air',
-          iPad: 'iPad',
-          iPadMini: 'iPad Mini',
-          ApplePencil: 'Apple Pencil',
-          Keyboards: 'Keyboards',
-        },
-        iPhone: {
-          iPhone12Pro: 'iPhone 12 Pro',
-          iPhone12: 'iPhone 12',
-          iPhoneSE: 'iPhone SE',
-          iPhone11: 'iPhone 11',
-          iPhoneXR: 'iPhone XR',
-          AirTag: 'AirTag'
-        },
-        Watch: {
-          AppleWatchSeries6: 'Apple Watch Series 6',
-          AppleWatchSE: 'Apple Watch SE',
-          AppleWatchSeries3: 'Apple Watch Series 3',
-          AppleWatchNike: 'Apple Watch Nike',
-          AppleWatchHermes: 'Apple Watch Hermes',
-          AppleWatchStudio: 'Apple Watch Studio',
-          Bands: 'Bands',
-        },
-        TV: {
-          AppleTVPlus : 'Apple TV+',
-          AppleTVapp: 'Apple TV app',
-          AppleTV4K: 'Apple TV 4K',
-          AppleTVHD: 'Apple TV HD',
-          AirPlay: 'AirPlay'
-        },
-        Music: {
-          AppleMusic: 'Apple Music',
-          AirPods: 'AirPods',
-          AirPodsPro: 'AirPods Pro',
-          AirPodsMax: 'AirPods Max',
-          HomePodMini: 'HomePod mini',
-          HomePod: 'HomePod',
-          iPodTouch: 'iPod touch',
-          Beats: 'Beats'
-        }
-      }
-
-    }
-  )
-  
-  // console.log(Object.keys(myState.Categories))
   const [jwt, setJwt] = useState(false)
+  const [myCategories, setMyCategories] = useState()
+  
+  useEffect(() => {
+      axios.get(`http://localhost:1337/categories`)
+      .then(res => {
+        setMyCategories(res.data);
+        // console.log(res.data[1]['under_categories'][0].id)
+      })
+      .catch((error) => console.log(error.message));
+  }, []);
+
+
 
 
 
   return (
     <>
     <Router>
-      <Navbar menuCategories={Object.keys(myState.Categories)}/>
-      <Breadcumps/>
+      
+      {jwt ?  
+        <>
+          <Navbar menuCategories={myCategories}/>
+          <Breadcumps />
+        </>
+      : <Redirect to="/signup" />}
+
       <Switch>
           <Route path="/signup">
             <Signup setMyJwt={(val) => setJwt(val)}/>
@@ -96,14 +53,14 @@ function App(props) {
           <Route path="/home" >
             {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
           </Route>
-          <Route exact path="/" >
-            {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/home" />}
-          </Route>
-          {Object.keys(myState.Categories).map((item, key) =>
-            <Route key={key} path={`/${item}`}>
-              <ProductPage currentCategories={myState.Categories[item]}/>
-            </Route>
-          )}
+            {jwt ?  
+            myCategories.map((item, key) =>
+              <Route key={key} path={`/${item.Name}`}>
+                <ProductPage currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+              </Route>
+            )
+            : <Redirect to="/signup" />}
+         
         </Switch>
     </Router>
     </>
