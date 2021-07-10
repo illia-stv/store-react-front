@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import '../styles/productpage.css'
 import UnderMenu from '../components/underMenu'
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 const ProductPage = (props) => {
+    const history = useHistory()
     const categoryList = props.currentCategories.map((item) => [item.Name,item.id])
     const [underCategory, setUnderCategories] = useState([])
     const [id,setId] = useState(props.id || 1);
@@ -19,6 +21,13 @@ const ProductPage = (props) => {
         })
         .catch((error) => console.log(error.message));
     }
+
+    const addToCart = (item) => {
+        props.setCart(item)
+        console.log(props.cart)
+    }
+
+    
 
     useEffect(() => {
         axios.get(`http://localhost:1337/under-categories/`+id)
@@ -53,8 +62,11 @@ const ProductPage = (props) => {
                         <div className='product-page_flex_product_under-title'>
                             From ${item.Price}
                         </div>
-                        <div className='product-page_flex_product_buy'>
+                        <div onClick={() => history.push('/buyPage')} className='product-page_flex_product_buy'>
                             Buy
+                        </div>
+                        <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>
+                            Add to Cart
                         </div>
                         <div className='product-page_flex_product_desc'>
                             {item.Descriptions.split('\n').map((item,key) => 
@@ -72,7 +84,9 @@ const ProductPage = (props) => {
 
 ProductPage.propTypes = {
     currentCategories: PropTypes.array,
-    id: PropTypes.number
+    id: PropTypes.number,
+    cart: PropTypes.array,
+    setCart: PropTypes.func
 }
 
 export default ProductPage

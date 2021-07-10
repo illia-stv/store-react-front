@@ -5,6 +5,7 @@ import Signin from '../components/signin'
 import Home from '../components/home'
 import Navbar from '../components/navbar'
 import Breadcumps from '../components/breadcumps'
+import Cart from '../components/cart'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,12 +14,26 @@ import {
 } from "react-router-dom";
 import ProductPage from '../components/productPage';
 import axios from 'axios'
+import ConfirmationPage from '../components/confirmationPage'
+import BuyPage from '../components/buyPage'
 
 function App() {
 
   const [jwt, setJwt] = useState(false)
   const [myCategories, setMyCategories] = useState()
+  const [cart, setCart] = useState([])
   
+  const addToCart = (val) => {
+    const arr = cart.filter((item)=>item.id==val.id)
+    if(arr.length == 0){
+      setCart([...cart, val])
+    }
+  } 
+
+  const delFromCart = (id) => {
+    setCart([...cart.splice(0,id),...cart.splice(1)])
+  }
+
   useEffect(() => {
       axios.get(`http://localhost:1337/categories`)
       .then(res => {
@@ -27,9 +42,6 @@ function App() {
       })
       .catch((error) => console.log(error.message));
   }, []);
-
-
-
 
 
   return (
@@ -53,10 +65,19 @@ function App() {
           <Route path="/home" >
             {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
           </Route>
+          <Route path="/cart" >
+            {jwt ?  <Cart delFromCart={delFromCart} cart={cart}/> : <Redirect to="/signup"/>}
+          </Route>
+          <Route path="/buyPage" >
+            {jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
+          </Route>
+          <Route path="/confirmed" >
+            <ConfirmationPage/>
+          </Route>
             {jwt ?  
             myCategories.map((item, key) =>
               <Route key={key} path={`/${item.Name}`}>
-                <ProductPage currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                <ProductPage setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
               </Route>
             )
             : <Redirect to="/signup" />}

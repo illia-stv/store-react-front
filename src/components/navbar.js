@@ -26,7 +26,7 @@ const Navbar = (props) => {
     return (
         <nav  className='navbar'>
             <div className='navbar-menu'>
-                <div onClick={() => linkClick('Home')} className='AppleLogo'>
+                <div onClick={() => linkClick('home')} className='AppleLogo'>
                     <AppleLogo width={'20px'} fill={logoColor ? '#eee' : '#ddd'} transition={'2s'} onMouseOut = {switchColorOff} onMouseOver={switchColorOn}/>
                 </div>
                 {props.menuCategories.map((item, key) => 
@@ -34,6 +34,9 @@ const Navbar = (props) => {
                         {item.Name}
                     </div>    
                 )}
+                <div onClick={() => linkClick('cart')} className='navbar_navbar-menu_title'>
+                    Cart
+                </div>
                 <div onClick={() => linkClick('signin')} className='navbar_navbar-menu_title'>
                     Signin
                 </div>

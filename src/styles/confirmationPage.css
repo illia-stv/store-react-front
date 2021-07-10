@@ -1,0 +1,31 @@
+
+
+
+.confirmed-title{
+    color: green;
+    width: min-content;
+    font-weight: 700;
+    font-size: 90px;
+    margin-right: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.confirmed{
+    margin: 200px auto 0;
+
+    width: min-content;
+    border: 2px solid #ddd;
+    padding: 15px 60px;
+    border-radius: 20px;
+    display: flex;
+    height: min-content;
+    flex-direction: row;
+    justify-content: space-between;
+    -webkit-box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.43); 
+box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.43);
+}
+
+
+
