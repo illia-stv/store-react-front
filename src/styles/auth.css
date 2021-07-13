@@ -12,6 +12,15 @@
     border-radius: 10px;
   }
   
+  .error{
+    color: red;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font: 500;   
+    line-height: 2;   
+  }
+
+
   .login-box h2 {
     margin: 0 0 30px;
     padding: 0;

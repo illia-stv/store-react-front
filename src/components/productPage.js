@@ -14,7 +14,12 @@ const ProductPage = (props) => {
     // setUnderCategoories('asd')
     const setMyId = (_id) => {
         setId(_id)
-        axios.get(`http://localhost:1337/under-categories/`+_id)
+        axios.get(`http://localhost:1337/under-categories/`+_id, {
+            headers: {
+              Authorization:
+                'Bearer ' + props.jwt,
+            },
+          })
         .then(res => {
         //   console.log(res.data);
           setUnderCategories(res.data.products)
@@ -30,7 +35,12 @@ const ProductPage = (props) => {
     
 
     useEffect(() => {
-        axios.get(`http://localhost:1337/under-categories/`+id)
+        axios.get(`http://localhost:1337/under-categories/`+id, {
+            headers: {
+              Authorization:
+                'Bearer ' + props.jwt,
+            },
+          })
         .then(res => {
         //   console.log(res.data);
           setUnderCategories(res.data.products)
@@ -86,7 +96,8 @@ ProductPage.propTypes = {
     currentCategories: PropTypes.array,
     id: PropTypes.number,
     cart: PropTypes.array,
-    setCart: PropTypes.func
+    setCart: PropTypes.func,
+    jwt: PropTypes.string
 }
 
 export default ProductPage

@@ -20,7 +20,7 @@ import BuyPage from '../components/buyPage'
 function App() {
 
   const [jwt, setJwt] = useState(false)
-  const [myCategories, setMyCategories] = useState()
+  const [myCategories, setMyCategories] = useState([])
   const [cart, setCart] = useState([])
   
   const addToCart = (val) => {
@@ -35,7 +35,12 @@ function App() {
   }
 
   useEffect(() => {
-      axios.get(`http://localhost:1337/categories`)
+      axios.get(`http://localhost:1337/categories`, {
+        headers: {
+          Authorization:
+            'Bearer ' + jwt,
+        },
+      })
       .then(res => {
         setMyCategories(res.data);
         // console.log(res.data[1]['under_categories'][0].id)
@@ -77,7 +82,7 @@ function App() {
             {jwt ?  
             myCategories.map((item, key) =>
               <Route key={key} path={`/${item.Name}`}>
-                <ProductPage setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                <ProductPage jwt={jwt} setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
               </Route>
             )
             : <Redirect to="/signup" />}
