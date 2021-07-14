@@ -1,5 +1,5 @@
 import './layout.css';
-import React,{useState, useEffect, lazy, Suspense} from 'react'
+import React,{ useEffect, lazy, Suspense} from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,6 +8,9 @@ import {
 } from "react-router-dom";
 import axios from 'axios'
 import Loading from '../components/loading';
+import { useSelector, useDispatch } from 'react-redux'
+import { setMyCategories, setCart, setJwt } from '../features/reducer/reducer'
+
 
 
 const ConfirmationPage = lazy(() => import('../components/confirmationPage'))
@@ -23,27 +26,25 @@ const ProductPage = lazy(() => import('../components/productPage'))
 
 
 function App() {
-
-  const [jwt, setJwt] = useState(localStorage.getItem('jwt') || false)
-  const [myCategories, setMyCategories] = useState([])
-  const [cart, setCart] = useState([])
-  // const [lng, setLng] = useState('Rus')
-
+  const state = useSelector((state) => state.state) 
+  console.log(state) 
+  const dispatch = useDispatch()
+  
   const addToCart = (val) => {
-    const arr = cart.filter((item)=>item.id==val.id)
+    const arr = state.cart.filter((item)=>item.id==val.id)
     if(arr.length == 0){
-      setCart([...cart, val])
+      dispatch(setCart([...state.cart, val]))
     }
   } 
 
   const delFromCart = (id) => {
-    setCart([...cart.splice(0,id),...cart.splice(1)])
+    dispatch(setCart([...state.cart.splice(0,id),...state.cart.splice(1)]))
   }
 
   const logout = () => {
     // console.log()
     localStorage.removeItem('jwt');
-    setJwt(false)
+    dispatch(setJwt(false))
   }
 
   // useEffect(() => {
@@ -56,7 +57,8 @@ function App() {
   useEffect(() => {
       axios.get(`http://localhost:1337/categories`)
       .then(res => {
-        setMyCategories(res.data);
+        // setMyCategories(res.data);
+        dispatch(setMyCategories(res.data))
         // console.log(res.data[1]['under_categories'][0].id)
       })
       .catch((error) => console.log(error.message));
@@ -67,35 +69,38 @@ function App() {
     <>
     <Router>
       <Suspense fallback={<Loading/>}>
-        {jwt ?  
+        {state.jwt ?  
           <>
-            <Navbar logout={logout} menuCategories={myCategories}/>
+            <Navbar logout={logout} menuCategories={state.myCategories}/>
             <Breadcumps />
           </>
         : <Redirect to="/signup" />}
         <Switch>
             <Route path="/signup">
-              <Signup setMyJwt={(val) => setJwt(val)}/>
+              <Signup setMyJwt={(val) => dispatch(setJwt(val))}/>
             </Route>
             <Route  path="/signin">
-              <Signin setMyJwt={(val) => setJwt(val)}/>
+              <Signin setMyJwt={(val) => dispatch(setJwt(val))}/>
+            </Route>
+            <Route exact path="/" >
+              {state.jwt ?  <Redirect to="/home"/> : <Redirect to="/signup" />}
             </Route>
             <Route path="/home" >
-              {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
+              {state.jwt ?  <Home myJwt={state.jwt}/> : <Redirect to="/signup" />}
             </Route>
             <Route path="/cart" >
-              {jwt ?  <Cart delFromCart={delFromCart} cart={cart}/> : <Redirect to="/signup"/>}
+              {state.jwt ?  <Cart delFromCart={delFromCart} cart={state.cart}/> : <Redirect to="/signup"/>}
             </Route>
             <Route path="/buy" >
-              {jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
+              {state.jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
             </Route>
             <Route path="/confirmed" >
               <ConfirmationPage/>
             </Route>
-              {jwt ?  
-              myCategories.map((item, key) =>
+              {state.jwt ?  
+              state.myCategories.map((item, key) =>
                 <Route key={key} path={`/${item.Name}`}>
-                  <ProductPage jwt={jwt} setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                  <ProductPage jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
                 </Route>
               )
               : <Redirect to="/signup" />}
@@ -104,6 +109,10 @@ function App() {
       </Suspense>
       
     </Router>
+    
+    {/*  onClick={() => dispatch(increment())} */}
+
+      
     </>
   );
 }

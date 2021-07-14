@@ -8,6 +8,7 @@ function Home() {
     const history = useHistory()
     const arrow = '>'
     const { t } = useTranslation();
+    
 
     const linkClick = (val) => {
         history.push(val)
@@ -81,6 +82,8 @@ function Home() {
                     </div>
                 </div>
            </div>
+            
+            
             
 
         </div>
