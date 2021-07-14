@@ -24,7 +24,7 @@ const ProductPage = lazy(() => import('../components/productPage'))
 
 function App() {
 
-  const [jwt, setJwt] = useState(false)
+  const [jwt, setJwt] = useState(localStorage.getItem('jwt') || false)
   const [myCategories, setMyCategories] = useState([])
   const [cart, setCart] = useState([])
   // const [lng, setLng] = useState('Rus')
@@ -42,6 +42,7 @@ function App() {
 
   const logout = () => {
     // console.log()
+    localStorage.removeItem('jwt');
     setJwt(false)
   }
 
@@ -85,7 +86,7 @@ function App() {
             <Route path="/cart" >
               {jwt ?  <Cart delFromCart={delFromCart} cart={cart}/> : <Redirect to="/signup"/>}
             </Route>
-            <Route path="/buyPage" >
+            <Route path="/buy" >
               {jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
             </Route>
             <Route path="/confirmed" >

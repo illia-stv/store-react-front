@@ -32,6 +32,10 @@ const ProductPage = (props) => {
         console.log(props.cart)
     }
 
+    const buyItem = (item) => {
+        addToCart(item)
+        history.push('/cart')
+    }
     
 
     useEffect(() => {
@@ -72,7 +76,7 @@ const ProductPage = (props) => {
                         <div className='product-page_flex_product_under-title'>
                             From ${item.Price}
                         </div>
-                        <div onClick={() => history.push('/buyPage')} className='product-page_flex_product_buy'>
+                        <div onClick={() => buyItem(item)} className='product-page_flex_product_buy'>
                             Buy
                         </div>
                         <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>

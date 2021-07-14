@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import '../styles/cart.css'
+import {useHistory} from 'react-router-dom'
 // import axios from 'axios'
 
 const Cart = (props) => {
-
+    const history = useHistory()
     // const [productsList, setProductsList] = useState([])
     const totalCost = props.cart.map((item)=>item.Price).reduce((a,b)=> a + b,0)
    
@@ -41,7 +42,10 @@ const Cart = (props) => {
                 )
             }
 
-            <h1 className="cart-total">Total: ${totalCost}</h1>
+            <div className="cart-buy-section">
+                <div className="cart-total">Total: ${totalCost}</div>
+                <div className="cart-buy" onClick={() => history.push('/buy')}>Buy</div>
+            </div>
 
                        {/* {props.cart.map((item, i)=>
                 <h1 key={i}>{item.id}</h1>
