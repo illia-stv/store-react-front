@@ -16,13 +16,15 @@ import ProductPage from '../components/productPage';
 import axios from 'axios'
 import ConfirmationPage from '../components/confirmationPage'
 import BuyPage from '../components/buyPage'
+import i18next from "i18next";
 
 function App() {
 
   const [jwt, setJwt] = useState(false)
   const [myCategories, setMyCategories] = useState([])
   const [cart, setCart] = useState([])
-  
+  const [lng, setLng] = useState('Eng')
+
   const addToCart = (val) => {
     const arr = cart.filter((item)=>item.id==val.id)
     if(arr.length == 0){
@@ -35,12 +37,14 @@ function App() {
   }
 
   useEffect(() => {
-      axios.get(`http://localhost:1337/categories`, {
-        headers: {
-          Authorization:
-            'Bearer ' + jwt,
-        },
-      })
+    i18next.changeLanguage(lng, (err, t) => {
+      if (err) return console.log('something went wrong loading', err);
+      t('key'); // -> same as i18next.t
+    });
+  }, [lng])
+
+  useEffect(() => {
+      axios.get(`http://localhost:1337/categories`)
       .then(res => {
         setMyCategories(res.data);
         // console.log(res.data[1]['under_categories'][0].id)
@@ -55,7 +59,7 @@ function App() {
       
       {jwt ?  
         <>
-          <Navbar menuCategories={myCategories}/>
+          <Navbar lng={lng} setLng={(val) => setLng(val)} menuCategories={myCategories}/>
           <Breadcumps />
         </>
       : <Redirect to="/signup" />}

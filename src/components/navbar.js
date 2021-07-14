@@ -3,6 +3,7 @@ import '../styles/navbar.css'
 import {ReactComponent as AppleLogo} from '../assets/svg/apple.svg';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
+import i18n from "i18next";
 
 
 
@@ -22,6 +23,7 @@ const Navbar = (props) => {
         history.push('/' + val)
     }
 
+    
 
     return (
         <nav  className='navbar'>
@@ -37,6 +39,15 @@ const Navbar = (props) => {
                 <div onClick={() => linkClick('cart')} className='navbar_navbar-menu_title'>
                     Cart
                 </div>
+                <div  className='navbar_navbar-menu_dropdown'>
+                    {props.lng}
+                    <div className="navbar_navbar-menu_dropdown-content">
+                        <div onClick={() => i18n.changeLanguage('Pl')}>Pl</div>
+                        <div onClick={() => i18n.changeLanguage('Eng')}>Eng</div>
+                        <div onClick={() => i18n.changeLanguage('Rus')}>Rus</div>
+                        <div onClick={() => i18n.changeLanguage('Fr')}>Fr</div>
+                    </div>
+                </div>
                 <div onClick={() => linkClick('signin')} className='navbar_navbar-menu_title'>
                     Signin
                 </div>
@@ -47,7 +58,9 @@ const Navbar = (props) => {
 }
 
 Navbar.propTypes = {
-    menuCategories: PropTypes.array
+    menuCategories: PropTypes.array,
+    lng: PropTypes.string,
+    setLng: PropTypes.func
   }
 
 export default Navbar

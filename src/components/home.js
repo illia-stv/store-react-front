@@ -1,6 +1,19 @@
 import React from 'react'
 import '../styles/home.css'
 import {useHistory} from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
+
+
+function MyComponent () {
+    const { t } = useTranslation();
+    return <div>{t('intro')}</div>
+}
+
+function MyDesc () {
+    const { t } = useTranslation();
+    return <div>{t('first desc')}</div>
+}
+
 
 function Home() {
     const history = useHistory()
@@ -18,10 +31,9 @@ function Home() {
                 <div className="intro-box">
                     <h2>iPhone 12</h2>
                     
-                    <h3>Blast past fast.</h3>
+                    <h3><MyComponent/></h3>
                     
-                    <h4>From $29.12/mo. for 24 mo. or $699 before trade-in <br/>
-                        Buy directly from Apple with special carrier offers
+                    <h4><MyDesc/>
                     </h4>
 
                     <div className="intro-flex">
