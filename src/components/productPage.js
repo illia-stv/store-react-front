@@ -76,7 +76,7 @@ const ProductPage = (props) => {
                             Buy
                         </div>
                         <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>
-                            Add to Cart
+                                Add to Cart
                         </div>
                         <div className='product-page_flex_product_desc'>
                             {item.Descriptions.split('\n').map((item,key) => 

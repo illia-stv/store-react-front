@@ -12,6 +12,7 @@
     height: 100%;
     padding: 10px 0;
     width: 20px;
+    cursor: pointer;
     /* border: 1px solid blue; */
 }
 
@@ -42,7 +43,7 @@
 }
 
 .logout_logo{
-  padding: 8px 0 0;
+  padding: 5px 0 0;
 }
 
 .navbar_navbar-menu_title:hover{

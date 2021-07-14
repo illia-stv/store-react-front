@@ -95,6 +95,12 @@
     transition: 0.1s;
 }
 
+
+
+.product-page_flex_product_buy:active{
+    font-size: 13px;
+}
+
 .product-page_flex_product_buy:hover{
     background-color:#68b4ff ;
 }

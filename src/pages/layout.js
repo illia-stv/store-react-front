@@ -1,22 +1,26 @@
 import './layout.css';
-import React,{useState, useEffect} from 'react'
-import Signup from '../components/signup'
-import Signin from '../components/signin'
-import Home from '../components/home'
-import Navbar from '../components/navbar'
-import Breadcumps from '../components/breadcumps'
-import Cart from '../components/cart'
+import React,{useState, useEffect, lazy, Suspense} from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from "react-router-dom";
-import ProductPage from '../components/productPage';
 import axios from 'axios'
-import ConfirmationPage from '../components/confirmationPage'
-import BuyPage from '../components/buyPage'
+import Loading from '../components/loading';
+
+
+const ConfirmationPage = lazy(() => import('../components/confirmationPage'))
+const BuyPage = lazy(() => import('../components/buyPage'))
+const Signup = lazy(() => import('../components/signup'))
+const Signin = lazy(() => import('../components/signin'))
+const Home = lazy(() => import ('../components/home'))
+const Navbar = lazy(() => import('../components/navbar'))
+const Breadcumps = lazy(() => import ('../components/breadcumps'))
+const Cart = lazy(() => import('../components/cart'))
+const ProductPage = lazy(() => import('../components/productPage'))
 // import i18next from "i18next";
+
 
 function App() {
 
@@ -34,6 +38,11 @@ function App() {
 
   const delFromCart = (id) => {
     setCart([...cart.splice(0,id),...cart.splice(1)])
+  }
+
+  const logout = () => {
+    // console.log()
+    setJwt(false)
   }
 
   // useEffect(() => {
@@ -56,42 +65,43 @@ function App() {
   return (
     <>
     <Router>
+      <Suspense fallback={<Loading/>}>
+        {jwt ?  
+          <>
+            <Navbar logout={logout} menuCategories={myCategories}/>
+            <Breadcumps />
+          </>
+        : <Redirect to="/signup" />}
+        <Switch>
+            <Route path="/signup">
+              <Signup setMyJwt={(val) => setJwt(val)}/>
+            </Route>
+            <Route  path="/signin">
+              <Signin setMyJwt={(val) => setJwt(val)}/>
+            </Route>
+            <Route path="/home" >
+              {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
+            </Route>
+            <Route path="/cart" >
+              {jwt ?  <Cart delFromCart={delFromCart} cart={cart}/> : <Redirect to="/signup"/>}
+            </Route>
+            <Route path="/buyPage" >
+              {jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
+            </Route>
+            <Route path="/confirmed" >
+              <ConfirmationPage/>
+            </Route>
+              {jwt ?  
+              myCategories.map((item, key) =>
+                <Route key={key} path={`/${item.Name}`}>
+                  <ProductPage jwt={jwt} setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                </Route>
+              )
+              : <Redirect to="/signup" />}
+          
+          </Switch>
+      </Suspense>
       
-      {jwt ?  
-        <>
-          <Navbar menuCategories={myCategories}/>
-          <Breadcumps />
-        </>
-      : <Redirect to="/signup" />}
-
-      <Switch>
-          <Route path="/signup">
-            <Signup setMyJwt={(val) => setJwt(val)}/>
-          </Route>
-          <Route  path="/signin">
-            <Signin setMyJwt={(val) => setJwt(val)}/>
-          </Route>
-          <Route path="/home" >
-            {jwt ?  <Home myJwt={jwt}/> : <Redirect to="/signup" />}
-          </Route>
-          <Route path="/cart" >
-            {jwt ?  <Cart delFromCart={delFromCart} cart={cart}/> : <Redirect to="/signup"/>}
-          </Route>
-          <Route path="/buyPage" >
-            {jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
-          </Route>
-          <Route path="/confirmed" >
-            <ConfirmationPage/>
-          </Route>
-            {jwt ?  
-            myCategories.map((item, key) =>
-              <Route key={key} path={`/${item.Name}`}>
-                <ProductPage jwt={jwt} setCart={addToCart} cart={cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
-              </Route>
-            )
-            : <Redirect to="/signup" />}
-         
-        </Switch>
     </Router>
     </>
   );
