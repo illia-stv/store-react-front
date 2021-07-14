@@ -35,7 +35,7 @@ function Signin(props) {
       })
       .then(response => {
           props.setMyJwt(response.data.jwt)
-          
+          console.log(response.data.jwt)
           history.push('/Home')
           
       })

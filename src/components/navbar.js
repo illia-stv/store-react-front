@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
 import '../styles/navbar.css'
 import {ReactComponent as AppleLogo} from '../assets/svg/apple.svg';
+import {ReactComponent as LngLogo} from '../assets/svg/language.svg';
+import {ReactComponent as ShoppingCart} from '../assets/svg/shopping-cart.svg';
+import {ReactComponent as Logout} from '../assets/svg/logout.svg';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import i18n from "i18next";
-
 
 
 const Navbar = (props) => {
@@ -23,7 +25,6 @@ const Navbar = (props) => {
         history.push('/' + val)
     }
 
-    
 
     return (
         <nav  className='navbar'>
@@ -37,19 +38,24 @@ const Navbar = (props) => {
                     </div>    
                 )}
                 <div onClick={() => linkClick('cart')} className='navbar_navbar-menu_title'>
-                    Cart
+                    <div className='cart_logo'>
+                        <ShoppingCart width={'20px'} fill={logoColor ? '#eee' : '#ddd'} transition={'2s'} onMouseOut = {switchColorOff} onMouseOver={switchColorOn}/>
+                    </div>
                 </div>
                 <div  className='navbar_navbar-menu_dropdown'>
-                    {props.lng}
+                    <LngLogo width={'20px'} fill={logoColor ? '#eee' : '#ddd'} transition={'2s'} onMouseOut = {switchColorOff} onMouseOver={switchColorOn}/>
+                    
                     <div className="navbar_navbar-menu_dropdown-content">
-                        <div onClick={() => i18n.changeLanguage('Pl')}>Pl</div>
-                        <div onClick={() => i18n.changeLanguage('Eng')}>Eng</div>
-                        <div onClick={() => i18n.changeLanguage('Rus')}>Rus</div>
-                        <div onClick={() => i18n.changeLanguage('Fr')}>Fr</div>
+                        <div onClick={() => i18n.changeLanguage('pl')}>Pl</div>
+                        <div onClick={() => i18n.changeLanguage('en')}>Eng</div>
+                        <div onClick={() => i18n.changeLanguage('ru')}>Rus</div>
+                        <div onClick={() => i18n.changeLanguage('fr')}>Fr</div>
                     </div>
                 </div>
                 <div onClick={() => linkClick('signin')} className='navbar_navbar-menu_title'>
-                    Signin
+                    <div className='logout_logo'>
+                     <Logout width={'20px'} fill={logoColor ? '#eee' : '#ddd'} transition={'2s'} onMouseOut = {switchColorOff} onMouseOver={switchColorOn}/>
+                    </div>
                 </div>
             </div>
             

@@ -1,23 +1,13 @@
 import React from 'react'
 import '../styles/home.css'
 import {useHistory} from 'react-router-dom'
-import { useTranslation } from 'react-i18next';
-
-
-function MyComponent () {
-    const { t } = useTranslation();
-    return <div>{t('intro')}</div>
-}
-
-function MyDesc () {
-    const { t } = useTranslation();
-    return <div>{t('first desc')}</div>
-}
+import {useTranslation} from 'react-i18next';
 
 
 function Home() {
     const history = useHistory()
     const arrow = '>'
+    const { t } = useTranslation();
 
     const linkClick = (val) => {
         history.push(val)
@@ -31,14 +21,17 @@ function Home() {
                 <div className="intro-box">
                     <h2>iPhone 12</h2>
                     
-                    <h3><MyComponent/></h3>
+                    <h3>{t("titles.part1")}</h3>
                     
-                    <h4><MyDesc/>
+                    <h4>
+                        
+                    {t("descs.part1")}
+                        
                     </h4>
 
                     <div className="intro-flex">
-                        <a onClick={() => linkClick('LearnMore')}>Learn more {arrow}</a>
-                        <a onClick={() => linkClick('Buy')}>Buy {arrow}</a>
+                        <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
+                        <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
                     </div>
                 </div>
            </div>
@@ -52,15 +45,15 @@ function Home() {
                         
                         <h2>iPhone 12 Pro</h2>
                         
-                        <h3>It&lsquo;s a leep year.</h3>
+                        <h3>{t("titles.part2")}</h3>
                         
-                        <h4>From $41.62/mo. for 24 mo. or $999 before trade-in <br/>
-                            Buy directly from Apple with special carrier offers
+                        <h4>
+                            {t("descs.part2")}
                         </h4>
 
                         <div className="iphon12-section_info-section-flex">
-                            <a onClick={() => linkClick('LearnMore')}>Learn more {arrow}</a>
-                            <a onClick={() => linkClick('Buy')}>Buy {arrow}</a>
+                            <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
+                            <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
                         </div>
 
                     </div>
@@ -76,13 +69,13 @@ function Home() {
                         
                         <h2>iPad Pro</h2>
                         
-                        <h3>Supercharged by the Apple M1 chip.</h3>
+                        <h3>{t("titles.part3")}</h3>
                         
                        
 
                         <div className="iPadPro-section_info-section-flex">
-                            <a onClick={() => linkClick('LearnMore')}>Learn more {arrow}</a>
-                            <a onClick={() => linkClick('Buy')}>Buy {arrow}</a>
+                            <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
+                            <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
                         </div>
 
                     </div>
