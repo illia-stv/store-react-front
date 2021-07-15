@@ -9,7 +9,7 @@ import {
 import axios from 'axios'
 import Loading from '../components/loading';
 import { useSelector, useDispatch } from 'react-redux'
-import { setMyCategories, setCart, setJwt } from '../features/reducer/reducer'
+import { setMyCategories, setCart, setJwt } from '../reducer/reducer'
 
 
 
@@ -27,7 +27,6 @@ const ProductPage = lazy(() => import('../components/productPage'))
 
 function App() {
   const state = useSelector((state) => state.state) 
-  console.log(state) 
   const dispatch = useDispatch()
   
   const addToCart = (val) => {
@@ -38,7 +37,12 @@ function App() {
   } 
 
   const delFromCart = (id) => {
-    dispatch(setCart([...state.cart.splice(0,id),...state.cart.splice(1)]))
+    const arr = state.cart.map((item)=> item)
+    // console.log('id',id)
+    // console.log(arr)
+
+    // console.log([...arr.splice(0,id),...arr.splice(1)])
+    dispatch(setCart([...arr.splice(0,id),...arr.splice(1)]))
   }
 
   const logout = () => {

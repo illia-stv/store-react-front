@@ -84,7 +84,7 @@ const ProductPage = (props) => {
                         </div>
                         <div className='product-page_flex_product_desc'>
                             {item.Descriptions.split('\n').map((item,key) => 
-                                <p key={key}>{item}</p> 
+                                <p key={key}>- {item}</p> 
                             )}
                         </div>
                     </div>

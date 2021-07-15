@@ -35,7 +35,9 @@ const Navbar = (props) => {
                     </div>
                 </div>
                 <div  className='navbar_navbar-menu_dropdown'>
-                    <LngLogo width={'20px'} fill={'#ddd'}/>
+                    <div className="lng_logo">
+                        <LngLogo width={'20px'} fill={'#ddd'}/>
+                    </div>
                     
                     <div className="navbar_navbar-menu_dropdown-content">
                         <div onClick={() => i18n.changeLanguage('pl')}>Pl</div>
