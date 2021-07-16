@@ -29,3 +29,19 @@ box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.43);
 
 
 
+@media only screen and (max-width: 800px) {
+    .confirmed-title{
+        font-size: 60px;
+    }
+
+    .confirmed-logo{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .confirmed-title{
+        font-size: 40px;
+    }
+
+}

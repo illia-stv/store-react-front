@@ -1,7 +1,11 @@
 import React from 'react'
 import '../styles/buyPage.css'
+import {useHistory} from 'react-router-dom'
 
 const BuyPage = () => {
+
+    const history = useHistory()
+
     return (
 
         <div className="container">
@@ -29,7 +33,10 @@ const BuyPage = () => {
                 </div>
                 <div className="col-half">
                     <h4>Gender</h4>
-                    <div className="input-group"><input id="gender-male" type="radio" name="gender" defaultValue="male" /><label htmlFor="gender-male">Male</label><input id="gender-female" type="radio" name="gender" defaultValue="female" /><label htmlFor="gender-female">Female</label></div>
+                    <div className="input-group">
+                        <div className="col-third"><input type="text" placeholder="Male" /></div>
+                        <div className="col-third"><input type="text" placeholder="Female" /></div>
+                    </div>
                 </div>
             </div>
             <div className="row">
@@ -48,6 +55,7 @@ const BuyPage = () => {
                 </div>
                 
             </div>
+            <div className="page-buy" onClick={() => history.push('/confirmed')}>Buy</div>
             
             </form>
         </div>

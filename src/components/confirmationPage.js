@@ -6,7 +6,7 @@ const ConfirmationPage = () => {
     return (
         <div className='confirmed'>
             <h1 className='confirmed-title'>Confirmed</h1>
-            <ConfimationLogo width={'70px'} fill={'green'} />
+            <ConfimationLogo className='confirmed-logo' width={'60px'} fill={'green'} />
         </div>
     )
 }

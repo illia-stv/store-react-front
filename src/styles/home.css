@@ -259,3 +259,67 @@
     text-decoration: underline;
 }
 
+@media only screen and (max-width: 800px) {
+    .intro-box h2{
+        font-size: 35px;
+    }
+    .intro-box h3{
+        font-size: 25px;
+
+    }
+    .intro-box h4{
+        font-size: 15px;
+        width: 60%;
+        margin: 10px auto;
+    }
+
+    .introduce-img{
+        width: 100%;
+        height: 600px;
+    }
+
+    .iphon12-section_info-section h2{
+        font-size: 35px;
+    }
+    .iphon12-section_info-section h3{
+        font-size: 25px;
+
+    }
+    .iphon12-section_info-section h4{
+        font-size: 15px;
+        width: 60%;
+        margin: 10px auto;
+    }
+
+    .intro-box{
+        width: 100%;
+    }
+
+    .iphon12-section_info-section{
+        width: 100%;
+    }
+
+    .iPadPro-section_info-section h2{
+        font-size: 35px;
+    }
+    .iPadPro-section_info-section h3{
+        font-size: 25px;
+        width: 60%;
+        margin: 15px auto;
+    }
+    .iPadPro-section_info-section h4{
+        font-size: 15px;
+        width: 60%;
+        margin: 10px auto;
+    }
+    .iPadPro-section{
+        width: 100%;
+    }
+    .iPadPro-section_info-section{
+        width: 100%;
+    }
+    /* .iPadPro{
+        height: 400px;
+    } */
+    
+}

@@ -112,3 +112,20 @@ border-radius: 25px;
     background-color:#68b4ff ;
 }
 
+@media only screen and (max-width: 1000px) {
+    
+    .product-page_flex{
+        flex-direction: column;
+        width: min-content;
+        margin: 50px auto 20px;
+    }
+
+    .product-page_flex_product{
+        /* border-bottom: 1px solid #eee; */
+        margin: 0 0 40px;
+    }
+
+    .product-page_title{
+        font-size: 35px;
+    }
+}

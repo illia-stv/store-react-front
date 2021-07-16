@@ -26,7 +26,7 @@ function Home() {
                     
                     <h4>
                         
-                    {t("descs.part1")}
+                        {t("descs.part1")}
                         
                     </h4>
 
