@@ -1,7 +1,7 @@
 import './layout.css';
 import React,{ useEffect, lazy, Suspense} from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect
@@ -72,20 +72,15 @@ function App() {
   return (
     <>
     <Router>
+      
       <Suspense fallback={<Loading/>}>
         {state.jwt ?  
-          <>
-            <Navbar logout={logout} menuCategories={state.myCategories}/>
-            <Breadcumps />
-          </>
-        : <Redirect to="/signup" />}
+            <>
+              <Navbar logout={logout} menuCategories={state.myCategories}/>
+              <Breadcumps />
+            </>
+          : <Redirect to="/signup" />}
         <Switch>
-            <Route path="/signup">
-              <Signup setMyJwt={(val) => dispatch(setJwt(val))}/>
-            </Route>
-            <Route  path="/signin">
-              <Signin setMyJwt={(val) => dispatch(setJwt(val))}/>
-            </Route>
             <Route exact path="/" >
               {state.jwt ?  <Redirect to="/home"/> : <Redirect to="/signup" />}
             </Route>
@@ -101,6 +96,12 @@ function App() {
             <Route path="/confirmed" >
               <ConfirmationPage/>
             </Route>
+            <Route path="/signup" >
+              <Signup setMyJwt={(val) => dispatch(setJwt(val))}/>
+            </Route>
+            <Route  path="/signin" >
+              <Signin setMyJwt={(val) => dispatch(setJwt(val))}/>
+            </Route>
               {state.jwt ?  
               state.myCategories.map((item, key) =>
                 <Route key={key} path={`/${item.Name}`}>
@@ -112,11 +113,10 @@ function App() {
           </Switch>
       </Suspense>
       
-    </Router>
     
     {/*  onClick={() => dispatch(increment())} */}
 
-      
+    </Router>
     </>
   );
 }

@@ -105,14 +105,14 @@ function Signup(props) {
           {error}
         </div>
         <div className="user-box-flex">
-            <a onClick={submit} className='user-box-flex_button' href="#">
+            <a onClick={submit} className='user-box-flex_button'>
             <span />
             <span />
             <span />
             <span />
             Submit
             </a>
-            <a onClick={toSignin} className='user-box-flex_button' href="#">
+            <a onClick={toSignin} className='user-box-flex_button'>
             <span />
             <span />
             <span />

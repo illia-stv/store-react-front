@@ -131,7 +131,10 @@
       top: 100%;
     }
   }
-  
+  .user-box-flex_button{
+    cursor: pointer;
+
+  }
   .login-box .user-box-flex_button span:nth-child(3) {
     bottom: 0;
     right: -100%;
