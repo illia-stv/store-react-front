@@ -89,6 +89,10 @@ function App() {
             </>
           : <Redirect to="/signup" />}
         <Switch>
+            <Route path='/privacy-policy' component={() => { 
+                window.location.href = 'https://facebook.com'; 
+                return null;
+            }}/>
             <Route exact path="/" >
               {state.jwt ?  <Redirect to="/home"/> : <Redirect to="/signup" />}
             </Route>

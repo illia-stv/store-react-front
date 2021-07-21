@@ -3,15 +3,60 @@ import PropTypes from 'prop-types';
 import '../styles/productpage.css'
 import UnderMenu from '../components/underMenu'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+// import {useHistory} from 'react-router-dom'
+
+
+
+const nameToCategory = (val) => {
+    const arr = val.split(' ')
+    const name = arr[0]
+    switch(name){
+        case 'MacBook':
+            return 'imac'
+            break;
+        case 'iMac':
+            return 'imac'
+            break;
+        case 'Mac':
+            return 'imac'
+            break;
+        case 'iPad':
+            return 'ipad'
+            break;
+        case 'Ipad':
+            return 'ipad'
+            break;
+        case 'iPhone':
+            return 'iphone'
+            break;
+        case 'Apple':
+            return 'watch'
+            break;
+    }
+    return null
+}
+
 
 const ProductPage = (props) => {
-    const history = useHistory()
     const categoryList = props.currentCategories.map((item) => [item.Name,item.id])
     const [underCategory, setUnderCategories] = useState([])
     const [id,setId] = useState(props.id || 1);
-    // console.log(underCategory)
-    // setUnderCategoories('asd')
+    
+
+    useEffect(()=> {
+        axios.get(props.url+`/under-categories/`+ id, {
+            headers: {
+              Authorization:
+                'Bearer ' + props.jwt,
+            },
+          })
+        .then(res => {
+          setUnderCategories(res.data.products)
+        })
+        .catch((error) => console.log(error.message));
+    },[])
+
+
     const setMyId = (_id) => {
         setId(_id)
         axios.get(props.url+`/under-categories/`+_id, {
@@ -21,11 +66,13 @@ const ProductPage = (props) => {
             },
           })
         .then(res => {
-        //   console.log(res.data);
+            console.log(res.data)
           setUnderCategories(res.data.products)
         })
         .catch((error) => console.log(error.message));
     }
+
+
 
     const addToCart = (item) => {
         props.setCart(item)
@@ -33,13 +80,16 @@ const ProductPage = (props) => {
     }
 
     const buyItem = (item) => {
-        // 
-        // addToCart(item)
-        axios.post(`http://localhost:1337/create-checkout-session`)
+        console.log(item.Name)
+        console.log(nameToCategory(item.Name))
+        axios.get(`http://localhost:1337/create-checkout-session-`+nameToCategory(item.Name), {
+            headers: {
+              Authorization:
+                'Bearer ' + props.jwt,
+            },
+          })
         .then(res => {
-          console.log(res.data);
-        //   history.push(res.data)
-        //   setUnderCategories(res.data.products)
+            window.location.href = res.data
         })
         .catch((error) => console.log(error));
     }
@@ -74,9 +124,7 @@ const ProductPage = (props) => {
                         <div onClick={() => buyItem(item)} className='product-page_flex_product_buy'>
                             Buy
                         </div>
-                        <form  className='product-page_flex_product_buy' action="http://localhost:1337/create-checkout-session" method="POST">
-                              <button type="submit">Buy</button>
-                        </form>
+                       
                         <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>
                             Add to Cart
                         </div>

@@ -97,6 +97,7 @@ border-radius: 25px;
     font-size: 11px;
     padding: 5px 10px;
     border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
     margin: 25px auto 35px;
     cursor: pointer;
     transition: 0.1s;
@@ -110,6 +111,19 @@ border-radius: 25px;
 
 .product-page_flex_product_buy:hover{
     background-color:#68b4ff ;
+}
+
+
+
+.product-page_flex_product_buy button{
+    background-color:transparent;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+    color: white;
+    font-size: 11px;
+    padding: 0;
 }
 
 @media only screen and (max-width: 1000px) {
