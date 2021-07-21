@@ -14,7 +14,7 @@ const ProductPage = (props) => {
     // setUnderCategoories('asd')
     const setMyId = (_id) => {
         setId(_id)
-        axios.get(`http://localhost:1337/under-categories/`+_id, {
+        axios.get(props.url+`/under-categories/`+_id, {
             headers: {
               Authorization:
                 'Bearer ' + props.jwt,
@@ -33,24 +33,19 @@ const ProductPage = (props) => {
     }
 
     const buyItem = (item) => {
-        addToCart(item)
-        history.push('/cart')
+        // 
+        // addToCart(item)
+        axios.post(`http://localhost:1337/create-checkout-session`)
+        .then(res => {
+          console.log(res.data);
+        //   history.push(res.data)
+        //   setUnderCategories(res.data.products)
+        })
+        .catch((error) => console.log(error));
     }
     
 
-    useEffect(() => {
-        axios.get(`http://localhost:1337/under-categories/`+id, {
-            headers: {
-              Authorization:
-                'Bearer ' + props.jwt,
-            },
-          })
-        .then(res => {
-        //   console.log(res.data);
-          setUnderCategories(res.data.products)
-        })
-        .catch((error) => console.log(error.message));
-    }, []);
+       
 
 
     return (
@@ -79,8 +74,11 @@ const ProductPage = (props) => {
                         <div onClick={() => buyItem(item)} className='product-page_flex_product_buy'>
                             Buy
                         </div>
+                        <form  className='product-page_flex_product_buy' action="http://localhost:1337/create-checkout-session" method="POST">
+                              <button type="submit">Buy</button>
+                        </form>
                         <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>
-                                Add to Cart
+                            Add to Cart
                         </div>
                         <div className='product-page_flex_product_desc'>
                             {item.Descriptions.split('\n').map((item,key) => 
@@ -101,7 +99,8 @@ ProductPage.propTypes = {
     id: PropTypes.number,
     cart: PropTypes.array,
     setCart: PropTypes.func,
-    jwt: PropTypes.string
+    jwt: PropTypes.string,
+    url: PropTypes.string
 }
 
 export default ProductPage

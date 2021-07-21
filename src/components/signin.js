@@ -28,8 +28,9 @@ function Signin(props) {
     // login
    
     if(isEmail(currentEmail)){
+      console.log(props.url)
       axios
-      .post('http://localhost:1337/auth/local', {
+      .post(props.url+'/auth/local', {
           identifier: currentEmail,
           password: currentPassword,
       })
@@ -37,7 +38,7 @@ function Signin(props) {
           props.setMyJwt(response.data.jwt)
           localStorage.setItem('jwt', response.data.jwt);
           console.log(response.data.jwt)
-          history.push('/Home')
+          history.push('/home')
           
       })
       .catch(error => {
@@ -103,7 +104,8 @@ function Signin(props) {
 }
 
 Signin.propTypes = {
-  setMyJwt: PropTypes.func
+  setMyJwt: PropTypes.func,
+  url: PropTypes.string
 }
 
 

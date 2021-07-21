@@ -1,7 +1,7 @@
 import './layout.css';
 import React,{ useEffect, lazy, Suspense} from 'react'
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Switch,
   Route,
   Redirect
@@ -25,10 +25,12 @@ const ProductPage = lazy(() => import('../components/productPage'))
 // import i18next from "i18next";
 
 
+
 function App() {
   const state = useSelector((state) => state.state) 
   const dispatch = useDispatch()
-  
+  const url = 'http://localhost:1337' 
+
   const addToCart = (val) => {
     const arr = state.cart.filter((item)=>item.id==val.id)
     if(arr.length == 0){
@@ -59,14 +61,20 @@ function App() {
   // }, [lng])
 
   useEffect(() => {
-      axios.get(`http://localhost:1337/categories`)
+      axios.get(url+`/categories`, {
+        headers: {
+          Authorization:
+            'Bearer ' + state.jwt,
+        },
+      })
       .then(res => {
         // setMyCategories(res.data);
+        console.log('here my data')
         dispatch(setMyCategories(res.data))
         // console.log(res.data[1]['under_categories'][0].id)
       })
       .catch((error) => console.log(error.message));
-  }, []);
+  }, [state.jwt]);
 
 
   return (
@@ -97,15 +105,15 @@ function App() {
               <ConfirmationPage/>
             </Route>
             <Route path="/signup" >
-              <Signup setMyJwt={(val) => dispatch(setJwt(val))}/>
+              <Signup url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
             </Route>
             <Route  path="/signin" >
-              <Signin setMyJwt={(val) => dispatch(setJwt(val))}/>
+              <Signin url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
             </Route>
               {state.jwt ?  
               state.myCategories.map((item, key) =>
                 <Route key={key} path={`/${item.Name}`}>
-                  <ProductPage jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                  <ProductPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
                 </Route>
               )
               : <Redirect to="/signup" />}

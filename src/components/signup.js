@@ -31,9 +31,10 @@ function Signup(props) {
     //     console.log(res.data);
     //   })
     // create user
-    if(isEmail(currentEmail) && isName(currentUsername) && isPassword(currentPassword)){
+      // if(isEmail(currentEmail) && isName(currentUsername) && isPassword(currentPassword)){
+        console.log(props.url+'/auth/local/register')
         axios
-      .post('http://localhost:1337/auth/local/register', {
+      .post(props.url+'/auth/local/register', {
         username: currentUsername,
         email: currentEmail,
         password: currentPassword,
@@ -46,40 +47,30 @@ function Signup(props) {
         setError('Something went wrong, we are so soryyyy!!!')
         console.log('An error occurred:', error.response);
       });
-    } else if(isName(currentUsername) == false){
-      setError('Username is invalid, should be 5 characters at least')
-    } else if(isEmail(currentEmail) == false) {
-      setError('Email is invalid')
-    } else if(isPassword(currentPassword) == false){
-      setError('Password is invalid, at least 8 characters (big and small letters and numbers)')
-    }
+    
+    // if(isEmail(currentEmail) && isName(currentUsername) && isPassword(currentPassword)){
+    //     axios
+    //   .post(props.url+'/auth/local/register', {
+    //     username: currentUsername,
+    //     email: currentEmail,
+    //     password: currentPassword,
+    //   })
+    //   .then(response => {
+    //     props.setMyJwt(response.data.jwt)
+    //     history.push('/signin')
+    //   })
+    //   .catch(error => {
+    //     setError('Something went wrong, we are so soryyyy!!!')
+    //     console.log('An error occurred:', error.response);
+    //   });
+    // } else if(isName(currentUsername) == false){
+    //   setError('Username is invalid, should be 5 characters at least')
+    // } else if(isEmail(currentEmail) == false) {
+    //   setError('Email is invalid')
+    // } else if(isPassword(currentPassword) == false){
+    //   setError('Password is invalid, at least 8 characters (big and small letters and numbers)')
+    // }
 
-
-    // login
-
-  // axios
-  // .post('http://localhost:1337/auth/local', {
-  //   identifier: 'test@test.com',
-  //   password: 'Password',
-  // })
-  // .then(response => {
-  //   console.log('User profile', response.data.user);
-  //   console.log('User token', response.data.jwt);
-  // })
-  // .catch(error => {
-  //   console.log('An error occurred:', error.response);
-  // });
-
-  // axios.get('http://localhost:1337/categories', {
-  //   headers: {
-  //     Authorization:
-  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI1NTgxNzQ4LCJleHAiOjE2MjgxNzM3NDh9.RBehxk-UNwXFcxpktBw5EF8vxhm_9yQoYMG7Dx5k6dA',
-  //   },
-  // }).then(response => {
-  //   console.log(response)
-  // }).catch(error => {
-  //   console.log('An error occurred:', error.response);
-  // });
 
 }
 
@@ -127,7 +118,8 @@ function Signup(props) {
 }
 
 Signup.propTypes = {
-  setMyJwt: PropTypes.func
+  setMyJwt: PropTypes.func,
+  url: PropTypes.string
 }
 
 export default Signup;
