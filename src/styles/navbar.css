@@ -206,6 +206,16 @@ input:checked + .slider:before {
     display: none;
   }
 
+  .switch{
+    margin: auto 20px auto 0;
+    height: 15px;
+  }
+
+  .slider:before {
+    height: 25px;
+    width: 25px;
+  }
+
   .navbar_navbar-menu_title_logo{
     margin: auto 20px auto 0;
   }

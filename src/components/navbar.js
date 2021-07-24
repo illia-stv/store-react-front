@@ -83,12 +83,11 @@ const Navbar = (props) => {
                         <div onClick={() => linkClick('home')} className='AppleLogo'>
                             <AppleLogo width={'20px'} fill={'#ddd'} />
                         </div>
+                        <label id="switch" className="switch">
+                            <input onClick={props.changeTheme} type="checkbox" id="slider" />
+                            <span className="slider round" />
+                        </label>
                         
-                        <div onClick={() => props.logout()} className='navbar_navbar-menu_title_logo'>
-                            <div className='logout_logo'>
-                            <Logout width={'20px'} fill={'#ddd'}/>
-                            </div>
-                        </div>
                     </>
                     : 
                     <Loading/>
@@ -108,7 +107,11 @@ const Navbar = (props) => {
                             <ShoppingCart width={'20px'} fill={'#ddd'}/>
                         </div>
                     </div>
-                    
+                    <div onClick={() => props.logout()} className='navbar_navbar-menu_title'>
+                        <div className='logout_logo'>
+                        <Logout width={'20px'} fill={'#ddd'}/>
+                        </div>
+                    </div>
                     <div  className='navbar_navbar-menu_dropdown'>
                         <div className="lng_logo">
                             <LngLogo width={'20px'} fill={'#ddd'}/>
@@ -121,7 +124,10 @@ const Navbar = (props) => {
                             <div onClick={() => i18n.changeLanguage('fr')}>Fr</div>
                         </div>
                     </div>
+                    
+                    
                 </div>
+                
             </div>
         </>
     )
