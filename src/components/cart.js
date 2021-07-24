@@ -24,15 +24,15 @@ const Cart = (props) => {
         const names = item.map((item)=> item.Name.split(' ').join('').toLowerCase())
         console.log(names)
         if(names.length !== 0){
-            axios.post(`http://localhost:1337/create-checkout-session`,{
+            axios.post(`https://my-apple-store-server.herokuapp.com/create-checkout-session`,{
             name: names
             })
             .then(res => {
                 // console.log(res.data)
-                
+                // setError(res.data)
                 window.location.href = res.data
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.log('error'));
         } else {
             setError(t("addSomthingToYourCart"))
         }
