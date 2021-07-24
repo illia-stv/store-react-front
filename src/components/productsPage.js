@@ -46,7 +46,7 @@ const ProductPage = (props) => {
     const buyItem = (item) => {
         // console.log(item.Price)
         const name = item.Name.split(' ').join('').toLowerCase()
-        axios.post(`http://localhost:1337/create-checkout-session`,{
+        axios.post(`https://my-apple-store-server.herokuapp.com/create-checkout-session`,{
             name: [name] 
         })
         .then(res => {
