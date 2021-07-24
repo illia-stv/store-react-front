@@ -2,7 +2,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    /* transform: translate(-50%, -50%); */
 
 }
 
@@ -68,7 +67,7 @@
     position: absolute;
     top: 40vh;
     left: 50vw;
-    transform: translateX(-70%);
+    transform: translateX(-63%);
     --clock-color: black;
     --clock-width: 5rem;
     --clock-radius: calc(var(--clock-width) / 2);

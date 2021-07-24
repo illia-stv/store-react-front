@@ -7,7 +7,7 @@ import {ReactComponent as Logout} from '../assets/svg/logout.svg';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import i18n from "i18next";
-import Loading from './loading';
+import Navloader from './navloader';
 
 
 const Navbar = (props) => {
@@ -90,7 +90,7 @@ const Navbar = (props) => {
                         
                     </>
                     : 
-                    <Loading/>
+                    <Navloader/>
                 }
 
             </nav>
@@ -139,6 +139,7 @@ Navbar.propTypes = {
     setLng: PropTypes.func,
     logout: PropTypes.func,
     changeTheme: PropTypes.func,
+    uploaded: PropTypes.bool
   }
 
 export default Navbar
