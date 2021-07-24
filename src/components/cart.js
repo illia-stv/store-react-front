@@ -1,24 +1,56 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types';
 import '../styles/cart.css'
-import {useHistory} from 'react-router-dom'
-// import axios from 'axios'
+// import {useHistory} from 'react-router-dom'
+import axios from 'axios'
+import {useTranslation} from 'react-i18next';
+
 
 const Cart = (props) => {
-    const history = useHistory()
+    // const history = useHistory()
+    const { t } = useTranslation();
+    const [error, setError] = useState('')
     // const [productsList, setProductsList] = useState([])
     const totalCost = props.cart.map((item)=>item.Price).reduce((a,b)=> a + b,0)
+    
+    useEffect(()=> {
+        if(error !== ''){
+            setError(t("addSomthingToYourCart"))
+        }
+    },[t("addSomthingToYourCart")])
+
+    const buyItem = (item) => {
+        // console.log(item.map((item)=> item.Name.split(' ').join('').toLowerCase()))
+        const names = item.map((item)=> item.Name.split(' ').join('').toLowerCase())
+        console.log(names)
+        if(names.length !== 0){
+            axios.post(`http://localhost:1337/create-checkout-session`,{
+            name: names
+            })
+            .then(res => {
+                // console.log(res.data)
+                
+                window.location.href = res.data
+            })
+            .catch((error) => console.log(error));
+        } else {
+            setError(t("addSomthingToYourCart"))
+        }
+        
+    }
+
+
    
     return (
-        <div onClick={() => console.log(totalCost)} className='cart'>
-            <h1 className='cart_title'>Items in your Cart</h1>
+        <div className='cart'>
+            <h1 className='cart_title'>{t("itemsInYourCart")}</h1>
             <div className='cart_line'></div>
             
             {
                 props.cart.map((item, i)=>
                     <div key={i} className='cart_product'>
                         <div className='cart_product-block'>
-                            <img className='cart_product-block_img' src={'http://localhost:1337' + item.Photo.url} />
+                            <img className='cart_product-block_img' src={item.PhotoURL} />
                         </div>
                         <div className='cart_product-info'>
                             <div className='cart_product-info_top'>
@@ -43,9 +75,10 @@ const Cart = (props) => {
             }
 
             <div className="cart-buy-section">
-                <div className="cart-total">Total: ${totalCost}</div>
-                <div className="cart-buy" onClick={() => history.push('/buy')}>Buy</div>
+                <div className="cart-total">{t("total")}: ${totalCost}</div>
+                <div className="cart-buy" onClick={() => buyItem(props.cart)}>{t("buy")}</div>
             </div>
+            <div className="cart-error">{error}</div>
 
                        {/* {props.cart.map((item, i)=>
                 <h1 key={i}>{item.id}</h1>

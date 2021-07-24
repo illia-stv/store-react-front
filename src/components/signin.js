@@ -26,7 +26,7 @@ function Signin(props) {
     // create user
     
     // login
-   
+   console.log('here')
     if(isEmail(currentEmail)){
       console.log(props.url)
       axios
@@ -47,35 +47,28 @@ function Signin(props) {
     } else {
       setError('Input is invalid')
     }
-    
 
-    
-
-  // axios.get('http://localhost:1337/categories', {
-  //   headers: {
-  //     Authorization:
-  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI1NTgxNzQ4LCJleHAiOjE2MjgxNzM3NDh9.RBehxk-UNwXFcxpktBw5EF8vxhm_9yQoYMG7Dx5k6dA',
-  //   },
-  // }).then(response => {
-  //   console.log(response)
-  // }).catch(error => {
-  //   console.log('An error occurred:', error.response);
-  // });
 
 }
 
+  const onKeyPressed = (e) => {
+      // console.log(e.keyCode);
+      if(e.keyCode == 13){
+        submit()
+      }
+  }
 
 
   return (
-    <div className="login-box">
+    <div onKeyDown={onKeyPressed} className="login-box">
       <h2 >Signin</h2>
       <form>
         <div className="user-box">
-          <input onChange={(event) => setCurrentEmail(event.target.value)} value={currentEmail} type="text" name required />
+          <input onChange={(event) => setCurrentEmail(event.target.value)} value={currentEmail} type="text" name='name' required />
           <label>Email</label>
         </div>
         <div className="user-box">
-          <input onChange={(event) => setCurrentPassword(event.target.value)} value={currentPassword} type="password" name required />
+          <input onChange={(event) => setCurrentPassword(event.target.value)} value={currentPassword} type="password" name='name' required />
           <label>Password</label>
         </div>
         <div className='error'>
@@ -89,12 +82,8 @@ function Signin(props) {
             <span />
             Submit
             </a>
-            <a onClick={toSignup} className='user-box-flex_button' >
-            <span />
-            <span />
-            <span />
-            <span />
-            Signup
+            <a onClick={toSignup} className='user-box-flex_auth_button' >
+              Signup
             </a>
         </div>
       </form>

@@ -1,35 +1,37 @@
 import './layout.css';
-import React,{ useEffect, lazy, Suspense} from 'react'
+import React,{ useEffect, lazy, Suspense, useState} from 'react'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  useHistory
 } from "react-router-dom";
 import axios from 'axios'
+import '../styles/app.css'
 import Loading from '../components/loading';
 import { useSelector, useDispatch } from 'react-redux'
-import { setMyCategories, setCart, setJwt } from '../reducer/reducer'
+import { setMyCategories, setCart, setJwt, setTheme } from '../reducer/reducer'
+
 
 
 
 const ConfirmationPage = lazy(() => import('../components/confirmationPage'))
-const BuyPage = lazy(() => import('../components/buyPage'))
 const Signup = lazy(() => import('../components/signup'))
 const Signin = lazy(() => import('../components/signin'))
 const Home = lazy(() => import ('../components/home'))
 const Navbar = lazy(() => import('../components/navbar'))
-const Breadcumps = lazy(() => import ('../components/breadcumps'))
 const Cart = lazy(() => import('../components/cart'))
-const ProductPage = lazy(() => import('../components/productPage'))
+const ProductsPage = lazy(() => import('../components/productsPage'))
 // import i18next from "i18next";
 
 
 
 function App() {
-  const state = useSelector((state) => state.state) 
+  const state = useSelector((state) => state.state)
+  const [navbarUploaded, setNavbarUploaded] = useState(false) 
   const dispatch = useDispatch()
-  const url = 'http://localhost:1337' 
+  const url = 'https://my-apple-store-server.herokuapp.com' 
+  const history = useHistory()
 
   const addToCart = (val) => {
     const arr = state.cart.filter((item)=>item.id==val.id)
@@ -48,9 +50,25 @@ function App() {
   }
 
   const logout = () => {
-    // console.log()
-    localStorage.removeItem('jwt');
-    dispatch(setJwt(false))
+    console.log('logout')
+    if(state.jwt){
+      localStorage.removeItem('jwt');
+      dispatch(setJwt(''))
+      history.push('signin')
+    } else {
+      history.push('signin')
+
+    }
+    
+  }
+
+  const changeTheme = () => {
+    console.log('here')
+    if(state.theme == 'light'){
+      dispatch(setTheme('dark'))
+    } else {
+      dispatch(setTheme('light'))
+    }
   }
 
   // useEffect(() => {
@@ -61,14 +79,11 @@ function App() {
   // }, [lng])
 
   useEffect(() => {
-      axios.get(url+`/categories`, {
-        headers: {
-          Authorization:
-            'Bearer ' + state.jwt,
-        },
-      })
+
+      axios.get(url+`/categories`)
       .then(res => {
         // setMyCategories(res.data);
+        setNavbarUploaded(true)
         console.log('here my data')
         dispatch(setMyCategories(res.data))
         // console.log(res.data[1]['under_categories'][0].id)
@@ -78,58 +93,52 @@ function App() {
 
 
   return (
-    <>
-    <Router>
-      
-      <Suspense fallback={<Loading/>}>
-        {state.jwt ?  
-            <>
-              <Navbar logout={logout} menuCategories={state.myCategories}/>
-              <Breadcumps />
-            </>
-          : <Redirect to="/signup" />}
-        <Switch>
-            <Route path='/privacy-policy' component={() => { 
-                window.location.href = 'https://facebook.com'; 
-                return null;
-            }}/>
-            <Route exact path="/" >
-              {state.jwt ?  <Redirect to="/home"/> : <Redirect to="/signup" />}
-            </Route>
-            <Route path="/home" >
-              {state.jwt ?  <Home myJwt={state.jwt}/> : <Redirect to="/signup" />}
-            </Route>
-            <Route path="/cart" >
-              {state.jwt ?  <Cart delFromCart={delFromCart} cart={state.cart}/> : <Redirect to="/signup"/>}
-            </Route>
-            <Route path="/buy" >
-              {state.jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
-            </Route>
-            <Route path="/confirmed" >
-              <ConfirmationPage/>
-            </Route>
-            <Route path="/signup" >
-              <Signup url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
-            </Route>
-            <Route  path="/signin" >
-              <Signin url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
-            </Route>
-              {state.jwt ?  
-              state.myCategories.map((item, key) =>
-                <Route key={key} path={`/${item.Name}`}>
-                  <ProductPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
-                </Route>
-              )
-              : <Redirect to="/signup" />}
+    <div className={state.theme == 'light' ? 'theme-light' : 'theme-dark'}>
+      <div className='app'>
+      </div>
+        <Suspense fallback={<Loading/>}>
+          <Navbar changeTheme={changeTheme} uploaded={navbarUploaded} logout={logout} menuCategories={state.myCategories}/>
           
-          </Switch>
-      </Suspense>
-      
-    
-    {/*  onClick={() => dispatch(increment())} */}
+          {/* <Breadcumps /> */}
 
-    </Router>
-    </>
+          <Switch>
+              
+              <Route exact path="/" >
+                <Redirect to="/home"/> 
+              </Route>
+              <Route path="/home" >
+                <Home theme={state.theme} myJwt={state.jwt}/>
+              </Route>
+              <Route path="/cart" >
+                <Cart delFromCart={delFromCart} cart={state.cart}/> 
+              </Route>
+              {/* <Route path="/buy" >
+                {state.jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
+              </Route> */}
+              <Route path="/confirmed" >
+                <ConfirmationPage/>
+              </Route>
+              <Route path="/signup" >
+                <Signup url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
+              </Route>
+              <Route  path="/signin" >
+                <Signin url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
+              </Route>
+                { 
+                  state.myCategories.map((item, key) =>
+                    <Route key={key} path={`/${item.Name}`}>
+                      <ProductsPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                    </Route>
+                  )
+                }
+            
+            </Switch>
+        </Suspense>
+        
+      
+      {/*  onClick={() => dispatch(increment())} */}
+
+    </div>
   );
 }
 

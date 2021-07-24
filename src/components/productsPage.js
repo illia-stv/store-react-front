@@ -1,40 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types';
 import '../styles/productpage.css'
-import UnderMenu from '../components/underMenu'
+import UnderMenu from './underMenu'
 import axios from 'axios'
 // import {useHistory} from 'react-router-dom'
+import {useTranslation} from 'react-i18next';
 
 
-
-const nameToCategory = (val) => {
-    const arr = val.split(' ')
-    const name = arr[0]
-    switch(name){
-        case 'MacBook':
-            return 'imac'
-            break;
-        case 'iMac':
-            return 'imac'
-            break;
-        case 'Mac':
-            return 'imac'
-            break;
-        case 'iPad':
-            return 'ipad'
-            break;
-        case 'Ipad':
-            return 'ipad'
-            break;
-        case 'iPhone':
-            return 'iphone'
-            break;
-        case 'Apple':
-            return 'watch'
-            break;
-    }
-    return null
-}
 
 
 const ProductPage = (props) => {
@@ -42,15 +14,12 @@ const ProductPage = (props) => {
     const [underCategory, setUnderCategories] = useState([])
     const [id,setId] = useState(props.id || 1);
     
+    const { t } = useTranslation();
 
     useEffect(()=> {
-        axios.get(props.url+`/under-categories/`+ id, {
-            headers: {
-              Authorization:
-                'Bearer ' + props.jwt,
-            },
-          })
+        axios.get(props.url+`/under-categories/`+ id)
         .then(res => {
+            console.log(res.data)
           setUnderCategories(res.data.products)
         })
         .catch((error) => console.log(error.message));
@@ -59,12 +28,7 @@ const ProductPage = (props) => {
 
     const setMyId = (_id) => {
         setId(_id)
-        axios.get(props.url+`/under-categories/`+_id, {
-            headers: {
-              Authorization:
-                'Bearer ' + props.jwt,
-            },
-          })
+        axios.get(props.url+`/under-categories/`+_id)
         .then(res => {
             console.log(res.data)
           setUnderCategories(res.data.products)
@@ -80,15 +44,13 @@ const ProductPage = (props) => {
     }
 
     const buyItem = (item) => {
-        console.log(item.Name)
-        console.log(nameToCategory(item.Name))
-        axios.get(`http://localhost:1337/create-checkout-session-`+nameToCategory(item.Name), {
-            headers: {
-              Authorization:
-                'Bearer ' + props.jwt,
-            },
-          })
+        // console.log(item.Price)
+        const name = item.Name.split(' ').join('').toLowerCase()
+        axios.post(`http://localhost:1337/create-checkout-session`,{
+            name: [name] 
+        })
         .then(res => {
+            // console.log(res.data)
             window.location.href = res.data
         })
         .catch((error) => console.log(error));
@@ -104,7 +66,7 @@ const ProductPage = (props) => {
 
         <div className='product-page'>
             <div className='product-page_title' onClick={() => console.log(underCategory[0].Descriptions.split('\n'))}>
-                Which Mac is right for you?
+                {t("productPageTitle")}
             </div>
             
             <div className='product-page_flex'>
@@ -113,7 +75,7 @@ const ProductPage = (props) => {
                     <div key={key} className='product-page_flex_product'>
                         {/* <div className='product-page-img' style={{background: `url('${item.Photo.url}') center/100% 100% no-repeat`}}/> */}
                         <div className='product-page-img_block'>
-                            <img className='product-page-img' src={'http://localhost:1337' + item.Photo.url} />
+                            <img className='product-page-img' src={item.PhotoURL} />
                         </div>
                         <div className='product-page_flex_product_title'>
                             {item.Name}

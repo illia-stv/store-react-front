@@ -48,7 +48,11 @@ export const resources = {
           Achetez directement auprès d'Apple avec les offres spéciales des opérateurs`
       },
       'learnMore': `Apprendre encore plus`,
-      'buy': `Acheter`
+      'buy': `Acheter`,
+      'productPageTitle': 'Quel Mac est fait pour vous ?',
+      'itemsInYourCart': 'Articles dans votre panier',
+      'total': 'Totale',
+      'addSomthingToYourCart': 'Ajouter quelque chose à votre panier'
     }
   },
   en: {
@@ -65,7 +69,12 @@ export const resources = {
         Buy directly from Apple with special carrier offers`
       },
       'learnMore': `Learn more`,
-      'buy': `Buy` 
+      'buy': `Buy`,
+      'productPageTitle': 'Which Mac is right for you?',
+      'itemsInYourCart': 'Items in your Cart',
+      'total': 'Total',
+      'addSomthingToYourCart': 'Add something to your cart'
+      
     }
   },
   pl: {
@@ -82,7 +91,11 @@ export const resources = {
         Kupuj bezpośrednio od Apple ze specjalnymi ofertami przewoźnika`
       },
       'learnMore': `Dowiedz się więcej`,
-      'buy': `Kupić`
+      'buy': `Kup`,
+      'productPageTitle': 'Który komputer Mac jest dla ciebie odpowiedni?',
+      'itemsInYourCart': 'Artykuły w twoim koszyku',
+      'total': 'Całkowicie',
+      'addSomthingToYourCart': 'Dodaj coś do koszyka'
     }
   },
   ru: {
@@ -99,7 +112,11 @@ export const resources = {
         Покупайте напрямую у Apple со специальными предложениями операторов связи`
       },
       'learnMore': `Узнай больше`,
-      'buy': `Купить` 
+      'buy': `Купить`,
+      'productPageTitle': 'Какой Mac вам подходит?',
+      'itemsInYourCart': 'Товары в вашей корзине',
+      'total': 'Всего',
+      'addSomthingToYourCart': 'Добавьте что-нибудь в корзину' 
     }
   }
 };

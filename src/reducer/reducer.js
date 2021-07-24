@@ -5,7 +5,8 @@ export const counterSlice = createSlice({
   initialState: {
     jwt: localStorage.getItem('jwt') || false,
     myCategories: [],
-    cart: []
+    cart: [],
+    theme: 'light'
   },
   reducers: {
     setMyCategories: (state, action) => {
@@ -16,11 +17,14 @@ export const counterSlice = createSlice({
     },
     setCart: (state, action) => {
       state.cart = action.payload
+    },
+    setTheme: (state, action) => {
+      state.theme = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setMyCategories, setJwt,setCart } = counterSlice.actions
+export const { setMyCategories, setJwt,setCart,setTheme } = counterSlice.actions
 
 export default counterSlice.reducer

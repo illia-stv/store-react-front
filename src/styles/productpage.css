@@ -1,5 +1,5 @@
 .product-page{
-    margin: 90px 0 0;
+    margin: 0px 0 0;
 }
 
 
@@ -18,9 +18,10 @@
     font-size: 45px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    color: #222;
+    color: var(--font-color);
     text-align: center;
-    margin: 150px 0 0;
+    margin: 90px 0 0;
+    padding: 100px 0 0;
 }
 
 
@@ -44,7 +45,7 @@
     font-size: 23px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    color: #222;
+    color: var(--font-color);
     text-align: center;
     margin: 50px 0 10px;
 }
@@ -53,7 +54,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    color: #222;
+    color: var(--font-color);
     text-align: center;
     /* border: 1px solid black; */
 }
@@ -61,7 +62,7 @@
 
 .product-page_flex_product_desc{
     margin: 20px 0 0;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--border-color);
     
 }
 
@@ -78,10 +79,10 @@ border-radius: 25px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
-    color: #222;
+    color: var(--font-color);
     /* white-space: nowrap; */
     /* width: min-content; */
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     text-align: center;
     line-height: 2;
     padding: 20px 0;

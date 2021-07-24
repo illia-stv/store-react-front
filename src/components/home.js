@@ -1,42 +1,37 @@
 import React from 'react'
 import '../styles/home.css'
-import {useHistory} from 'react-router-dom'
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 
-function Home() {
-    const history = useHistory()
-    const arrow = '>'
+function Home(props) {
     const { t } = useTranslation();
-    
-
-    const linkClick = (val) => {
-        history.push(val)
-    }
-
+      
     return (
         <div>
-           <div className='intro'>
-            <div className="introduce-img">
-            </div>
-                <div className="intro-box">
-                    <h2>iPhone 12</h2>
-                    
-                    <h3>{t("titles.part1")}</h3>
-                    
-                    <h4>
+           { 
+           props.theme == 'light' ?
+                <div className='intro'>
+                    <div className="introduce-img">
+                    </div>
+                    <div className="intro-box">
+                        <h2>iPhone 12</h2>
                         
-                        {t("descs.part1")}
+                        <h3>{t("titles.part1")}</h3>
                         
-                    </h4>
+                        <h4>
+                            {t("descs.part1")}
+                        </h4>
 
-                    <div className="intro-flex">
-                        <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
-                        <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
+                        {/* <div className="intro-flex">
+                            <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
+                            <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
+                        </div> */}
                     </div>
                 </div>
-           </div>
-           
+            :
+                null
+            }
            <div className="iphone12">
                 <div className="iphon12-section_img">
                 </div>
@@ -52,10 +47,10 @@ function Home() {
                             {t("descs.part2")}
                         </h4>
 
-                        <div className="iphon12-section_info-section-flex">
+                        {/* <div className="iphon12-section_info-section-flex">
                             <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
                             <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
@@ -74,10 +69,10 @@ function Home() {
                         
                        
 
-                        <div className="iPadPro-section_info-section-flex">
+                        {/* <div className="iPadPro-section_info-section-flex">
                             <a onClick={() => linkClick('LearnMore')}>{t("learnMore")} {arrow}</a>
                             <a onClick={() => linkClick('Buy')}>{t("buy")} {arrow}</a>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
@@ -90,4 +85,7 @@ function Home() {
     )
 }
 
+Home.propTypes = {
+    theme: PropTypes.string,
+}
 export default Home

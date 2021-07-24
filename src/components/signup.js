@@ -81,15 +81,15 @@ function Signup(props) {
       <h2 onClick={click}>Signup</h2>
       <form>
         <div className="user-box">
-          <input onChange={(event) => setCurrentUsername(event.target.value)} value={currentUsername} type="text" name required />
+          <input onChange={(event) => setCurrentUsername(event.target.value)} value={currentUsername} type="text" name='name' required />
           <label>Username</label>
         </div>
         <div className="user-box">
-          <input onChange={(event) => setCurrentEmail(event.target.value)} value={currentEmail} type="text" name required />
+          <input onChange={(event) => setCurrentEmail(event.target.value)} value={currentEmail} type="text" name='name' required />
           <label>Email</label>
         </div>
         <div className="user-box">
-          <input onChange={(event) => setCurrentPassword(event.target.value)} value={currentPassword} type="password" name required />
+          <input onChange={(event) => setCurrentPassword(event.target.value)} value={currentPassword} type="password" name='name' required />
           <label>Password</label>
         </div>
         <div className='error'>
@@ -104,10 +104,6 @@ function Signup(props) {
             Submit
             </a>
             <a onClick={toSignin} className='user-box-flex_button'>
-            <span />
-            <span />
-            <span />
-            <span />
             Signin
             </a>
         </div>
