@@ -74,15 +74,19 @@ const ProductPage = (props) => {
                      
                     <div key={key} className='product-page_flex_product'>
                         {/* <div className='product-page-img' style={{background: `url('${item.Photo.url}') center/100% 100% no-repeat`}}/> */}
+                        
                         <div className='product-page-img_block'>
                             <img className='product-page-img' src={item.PhotoURL} />
                         </div>
+                        
                         <div className='product-page_flex_product_title'>
                             {item.Name}
                         </div>
+
                         <div className='product-page_flex_product_under-title'>
                             From ${item.Price}
                         </div>
+                        
                         <div onClick={() => buyItem(item)} className='product-page_flex_product_buy'>
                             Buy
                         </div>
@@ -90,6 +94,7 @@ const ProductPage = (props) => {
                         <div onClick={()=> addToCart(item)} className='product-page_flex_product_buy'>
                             Add to Cart
                         </div>
+
                         <div className='product-page_flex_product_desc'>
                             {item.Descriptions.split('\n').map((item,key) => 
                                 <p key={key}>- {item}</p> 

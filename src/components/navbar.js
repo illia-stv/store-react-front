@@ -20,7 +20,6 @@ const Navbar = (props) => {
     }
 
 
-
     return (
         <>
             <nav  className='navbar'>
@@ -61,7 +60,7 @@ const Navbar = (props) => {
                     </div>
                     <div onClick={() => props.logout()} className='navbar_navbar-menu_title'>
                         <div className='logout_logo'>
-                        <Logout width={'20px'} fill={'#ddd'}/>
+                            <Logout width={'20px'} fill={'#ddd'}/>
                         </div>
                     </div>
                     <label id="switch" className="switch">
