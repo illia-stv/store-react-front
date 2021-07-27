@@ -4,15 +4,6 @@ import PropTypes from 'prop-types';
 
 const UnderMenu = (props) => {
     
-    // const objToArr = () => {
-    //     const arr = []
-    //     for (const item in props.categories) {
-    //         arr.push(props.categories[item])
-    //     }
-    //     return arr
-    // }
-    
-    // console.log(props.categories)
 
     const linkClick = (id) => {
         props.setMyId(id)

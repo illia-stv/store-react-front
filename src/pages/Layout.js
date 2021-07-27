@@ -20,8 +20,8 @@ const Signup = lazy(() => import('../components/signup'))
 const Signin = lazy(() => import('../components/signin'))
 const Home = lazy(() => import ('../components/HomeComponent'))
 const NavbarPage = lazy(() => import('./NavbarPage'))
-const Cart = lazy(() => import('../components/cart'))
-const ProductsPage = lazy(() => import('../components/productsPage'))
+const CartPage = lazy(() => import('./CartPage'))
+const ProductPage = lazy(() => import('./ProductPage'))
 // import i18next from "i18next";
 
 
@@ -106,7 +106,7 @@ function App() {
                 <Home theme={state.theme} myJwt={state.jwt}/>
               </Route>
               <Route path="/cart" >
-                <Cart delFromCart={delFromCart} cart={state.cart}/> 
+                <CartPage cart={state.cart}/> 
               </Route>
               {/* <Route path="/buy" >
                 {state.jwt ?  <BuyPage /> : <Redirect to="/signup"/>}
@@ -123,7 +123,7 @@ function App() {
               { 
                 state.myCategories.map((item, key) =>
                   <Route key={key} path={`/${item.Name}`}>
-                    <ProductsPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                    <ProductPage url={url} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
                   </Route>
                 )
               }
