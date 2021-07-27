@@ -20,7 +20,7 @@ const ProductPage = (props) => {
     
 
     useEffect(()=> {
-        axios.get(props.url+`/under-categories/`+ id)
+        axios.get(`/under-categories/`+ id)
         .then(res => {
           setUnderCategories(res.data.products)
         })
@@ -30,7 +30,7 @@ const ProductPage = (props) => {
 
     const setMyId = (_id) => {
         setId(_id)
-        axios.get(props.url+`/under-categories/`+_id)
+        axios.get(`/under-categories/`+_id)
         .then(res => {
           setUnderCategories(res.data.products)
         })

@@ -6,7 +6,7 @@ const BuyButtonPage = ({val, item}) => {
     const buyItem = (item) => {
         // console.log(item.Price)
         const name = item.Name.split(' ').join('').toLowerCase()
-        axios.post(`https://my-apple-store-server.herokuapp.com/create-checkout-session`,{
+        axios.post(`/create-checkout-session`,{
             name: [name] 
         })
         .then(res => {

@@ -30,56 +30,10 @@ function App() {
   const state = useSelector((state) => state.state)
   const [navbarUploaded, setNavbarUploaded] = useState(false) 
   const dispatch = useDispatch()
-  const url = 'https://my-apple-store-server.herokuapp.com' 
   const history = useHistory()
 
-  const addToCart = (val) => {
-    const arr = state.cart.filter((item)=>item.id==val.id)
-    if(arr.length == 0){
-      dispatch(setCart([...state.cart, val]))
-    }
-  } 
-
-  const delFromCart = (id) => {
-    const arr = state.cart.map((item)=> item)
-    // console.log('id',id)
-    // console.log(arr)
-
-    // console.log([...arr.splice(0,id),...arr.splice(1)])
-    dispatch(setCart([...arr.splice(0,id),...arr.splice(1)]))
-  }
-
-  const logout = () => {
-    console.log('logout')
-    if(state.jwt){
-      localStorage.removeItem('jwt');
-      dispatch(setJwt(''))
-      history.push('signin')
-    } else {
-      history.push('signin')
-
-    }
-    
-  }
-
-  const changeTheme = () => {
-    console.log('here')
-    if(state.theme == 'light'){
-      dispatch(setTheme('dark'))
-    } else {
-      dispatch(setTheme('light'))
-    }
-  }
-
-  // useEffect(() => {
-  //   i18next.changeLanguage(lng, (err, t) => {
-  //     if (err) return console.log('something went wrong loading', err);
-  //     t('key'); // -> same as i18next.t
-  //   });
-  // }, [lng])
-
   useEffect(() => {
-      axios.get(url+`/categories`)
+      axios.get(`/categories`)
       .then(res => {
         // setMyCategories(res.data);
         setNavbarUploaded(true)
@@ -115,15 +69,15 @@ function App() {
                 <ConfirmationPage/>
               </Route>
               <Route path="/signup" >
-                <Signup url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
+                <Signup setMyJwt={(val) => dispatch(setJwt(val))}/>
               </Route>
               <Route  path="/signin" >
-                <Signin url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
+                <Signin setMyJwt={(val) => dispatch(setJwt(val))}/>
               </Route>
               { 
                 state.myCategories.map((item, key) =>
                   <Route key={key} path={`/${item.Name}`}>
-                    <ProductPage url={url} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                    <ProductPage currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
                   </Route>
                 )
               }

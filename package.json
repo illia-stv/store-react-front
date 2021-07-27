@@ -2,6 +2,7 @@
   "name": "my-react-front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://my-apple-store-server.herokuapp.com",
   "homepage": ".",
   "dependencies": {
     "@babel/preset-env": "^7.14.7",

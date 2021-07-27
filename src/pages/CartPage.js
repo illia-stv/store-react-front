@@ -29,7 +29,7 @@ const CartPage = (props) => {
         const names = item.map((item)=> item.Name.split(' ').join('').toLowerCase())
         console.log(names)
         if(names.length !== 0){
-            axios.post(`https://my-apple-store-server.herokuapp.com/create-checkout-session`,{
+            axios.post(`/create-checkout-session`,{
             name: names
             })
             .then(res => {
