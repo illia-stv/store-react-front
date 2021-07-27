@@ -1,4 +1,4 @@
-import './layout.css';
+import '../styles/layout.css';
 import React,{ useEffect, lazy, Suspense, useState} from 'react'
 import {
   Switch,
@@ -18,8 +18,8 @@ import { setMyCategories, setCart, setJwt, setTheme } from '../reducer/reducer'
 const ConfirmationPage = lazy(() => import('../components/confirmationPage'))
 const Signup = lazy(() => import('../components/signup'))
 const Signin = lazy(() => import('../components/signin'))
-const Home = lazy(() => import ('../components/home'))
-const Navbar = lazy(() => import('../components/navbar'))
+const Home = lazy(() => import ('../components/HomeComponent'))
+const NavbarPage = lazy(() => import('./NavbarPage'))
 const Cart = lazy(() => import('../components/cart'))
 const ProductsPage = lazy(() => import('../components/productsPage'))
 // import i18next from "i18next";
@@ -79,7 +79,6 @@ function App() {
   // }, [lng])
 
   useEffect(() => {
-
       axios.get(url+`/categories`)
       .then(res => {
         // setMyCategories(res.data);
@@ -97,12 +96,9 @@ function App() {
       <div className='app'>
       </div>
         <Suspense fallback={<Loading/>}>
-          <Navbar changeTheme={changeTheme} uploaded={navbarUploaded} logout={logout} menuCategories={state.myCategories}/>
-          
-          {/* <Breadcumps /> */}
+          <NavbarPage />
 
           <Switch>
-              
               <Route exact path="/" >
                 <Redirect to="/home"/> 
               </Route>
@@ -124,13 +120,13 @@ function App() {
               <Route  path="/signin" >
                 <Signin url={url} setMyJwt={(val) => dispatch(setJwt(val))}/>
               </Route>
-                { 
-                  state.myCategories.map((item, key) =>
-                    <Route key={key} path={`/${item.Name}`}>
-                      <ProductsPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
-                    </Route>
-                  )
-                }
+              { 
+                state.myCategories.map((item, key) =>
+                  <Route key={key} path={`/${item.Name}`}>
+                    <ProductsPage url={url} jwt={state.jwt} setCart={addToCart} cart={state.cart} currentCategories={item['under_categories']} id={item['under_categories'][0].id}/>
+                  </Route>
+                )
+              }
             
             </Switch>
         </Suspense>
